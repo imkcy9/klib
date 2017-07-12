@@ -1,0 +1,339 @@
+#
+# Generated Makefile - do not edit!
+#
+# Edit the Makefile in the project folder instead (../Makefile). Each target
+# has a -pre and a -post target defined where you can add customized code.
+#
+# This makefile implements configuration specific macros and targets.
+
+
+# Environment
+MKDIR=mkdir
+CP=cp
+GREP=grep
+NM=nm
+CCADMIN=CCadmin
+RANLIB=ranlib
+CC=gcc
+CCC=g++
+CXX=g++
+FC=gfortran
+AS=as
+
+# Macros
+CND_PLATFORM=GNU-Linux
+CND_DLIB_EXT=so
+CND_CONF=Release
+CND_DISTDIR=dist
+CND_BUILDDIR=build
+
+# Include project Makefile
+include Makefile
+
+# Object Directory
+OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
+
+# Object Files
+OBJECTFILES= \
+	${OBJECTDIR}/clock.o \
+	${OBJECTDIR}/epoll.o \
+	${OBJECTDIR}/file_watch.o \
+	${OBJECTDIR}/mailbox.o \
+	${OBJECTDIR}/mtrie.o \
+	${OBJECTDIR}/mysql_help.o \
+	${OBJECTDIR}/newmain.o \
+	${OBJECTDIR}/pipe.o \
+	${OBJECTDIR}/poller_base.o \
+	${OBJECTDIR}/signaler.o \
+	${OBJECTDIR}/thread.o \
+	${OBJECTDIR}/trie_t.o
+
+# Test Directory
+TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
+
+# Test Files
+TESTFILES= \
+	${TESTDIR}/TestFiles/f1
+
+# Test Object Files
+TESTOBJECTFILES= \
+	${TESTDIR}/tests/newsimpletest.o
+
+# C Compiler Flags
+CFLAGS=
+
+# CC Compiler Flags
+CCFLAGS=
+CXXFLAGS=
+
+# Fortran Compiler Flags
+FFLAGS=
+
+# Assembler Flags
+ASFLAGS=
+
+# Link Libraries and Options
+LDLIBSOPTIONS=
+
+# Build Targets
+.build-conf: ${BUILD_SUBPROJECTS}
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/component
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/component: ${OBJECTFILES}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
+	g++ -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/component ${OBJECTFILES} ${LDLIBSOPTIONS} -lrt
+
+${OBJECTDIR}/clock.o: clock.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/clock.o clock.cpp
+
+${OBJECTDIR}/epoll.o: epoll.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/epoll.o epoll.cpp
+
+${OBJECTDIR}/file_watch.o: file_watch.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/file_watch.o file_watch.cpp
+
+${OBJECTDIR}/mailbox.o: mailbox.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mailbox.o mailbox.cpp
+
+${OBJECTDIR}/mtrie.o: mtrie.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mtrie.o mtrie.cpp
+
+${OBJECTDIR}/mysql_help.o: mysql_help.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mysql_help.o mysql_help.cpp
+
+${OBJECTDIR}/newmain.o: newmain.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/newmain.o newmain.cpp
+
+${OBJECTDIR}/pipe.o: pipe.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pipe.o pipe.cpp
+
+${OBJECTDIR}/poller_base.o: poller_base.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/poller_base.o poller_base.cpp
+
+${OBJECTDIR}/signaler.o: signaler.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/signaler.o signaler.cpp
+
+${OBJECTDIR}/thread.o: thread.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thread.o thread.cpp
+
+${OBJECTDIR}/trie_t.o: trie_t.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/trie_t.o trie_t.cpp
+
+# Subprojects
+.build-subprojects:
+
+# Build Test Targets
+.build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
+.build-tests-subprojects:
+
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
+
+
+${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.c 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.c
+
+
+${OBJECTDIR}/clock_nomain.o: ${OBJECTDIR}/clock.o clock.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/clock.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/clock_nomain.o clock.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/clock.o ${OBJECTDIR}/clock_nomain.o;\
+	fi
+
+${OBJECTDIR}/epoll_nomain.o: ${OBJECTDIR}/epoll.o epoll.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/epoll.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/epoll_nomain.o epoll.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/epoll.o ${OBJECTDIR}/epoll_nomain.o;\
+	fi
+
+${OBJECTDIR}/file_watch_nomain.o: ${OBJECTDIR}/file_watch.o file_watch.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/file_watch.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/file_watch_nomain.o file_watch.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/file_watch.o ${OBJECTDIR}/file_watch_nomain.o;\
+	fi
+
+${OBJECTDIR}/mailbox_nomain.o: ${OBJECTDIR}/mailbox.o mailbox.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/mailbox.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mailbox_nomain.o mailbox.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/mailbox.o ${OBJECTDIR}/mailbox_nomain.o;\
+	fi
+
+${OBJECTDIR}/mtrie_nomain.o: ${OBJECTDIR}/mtrie.o mtrie.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/mtrie.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mtrie_nomain.o mtrie.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/mtrie.o ${OBJECTDIR}/mtrie_nomain.o;\
+	fi
+
+${OBJECTDIR}/mysql_help_nomain.o: ${OBJECTDIR}/mysql_help.o mysql_help.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/mysql_help.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mysql_help_nomain.o mysql_help.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/mysql_help.o ${OBJECTDIR}/mysql_help_nomain.o;\
+	fi
+
+${OBJECTDIR}/newmain_nomain.o: ${OBJECTDIR}/newmain.o newmain.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/newmain.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/newmain_nomain.o newmain.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/newmain.o ${OBJECTDIR}/newmain_nomain.o;\
+	fi
+
+${OBJECTDIR}/pipe_nomain.o: ${OBJECTDIR}/pipe.o pipe.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/pipe.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pipe_nomain.o pipe.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/pipe.o ${OBJECTDIR}/pipe_nomain.o;\
+	fi
+
+${OBJECTDIR}/poller_base_nomain.o: ${OBJECTDIR}/poller_base.o poller_base.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/poller_base.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/poller_base_nomain.o poller_base.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/poller_base.o ${OBJECTDIR}/poller_base_nomain.o;\
+	fi
+
+${OBJECTDIR}/signaler_nomain.o: ${OBJECTDIR}/signaler.o signaler.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/signaler.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/signaler_nomain.o signaler.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/signaler.o ${OBJECTDIR}/signaler_nomain.o;\
+	fi
+
+${OBJECTDIR}/thread_nomain.o: ${OBJECTDIR}/thread.o thread.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/thread.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thread_nomain.o thread.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/thread.o ${OBJECTDIR}/thread_nomain.o;\
+	fi
+
+${OBJECTDIR}/trie_t_nomain.o: ${OBJECTDIR}/trie_t.o trie_t.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/trie_t.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.c) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/trie_t_nomain.o trie_t.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/trie_t.o ${OBJECTDIR}/trie_t_nomain.o;\
+	fi
+
+# Run Test Targets
+.test-conf:
+	@if [ "${TEST}" = "" ]; \
+	then  \
+	    ${TESTDIR}/TestFiles/f1 || true; \
+	else  \
+	    ./${TEST} || true; \
+	fi
+
+# Clean Targets
+.clean-conf: ${CLEAN_SUBPROJECTS}
+	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+
+# Subprojects
+.clean-subprojects:
+
+# Enable dependency checking
+.dep.inc: .depcheck-impl
+
+include .dep.inc

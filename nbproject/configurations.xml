@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="include" displayName="include" projectFiles="true">
+      <itemPath>include/IniFile.h</itemPath>
+      <itemPath>include/array.h</itemPath>
+      <itemPath>include/atomic_counter.h</itemPath>
+      <itemPath>include/atomic_ptr.h</itemPath>
+      <itemPath>include/blob.h</itemPath>
+      <itemPath>include/clock.h</itemPath>
+      <itemPath>include/dbuffer.h</itemPath>
+      <itemPath>include/epoll.h</itemPath>
+      <itemPath>include/file_watch.h</itemPath>
+      <itemPath>include/i_poll_events.h</itemPath>
+      <itemPath>include/mailbox.h</itemPath>
+      <itemPath>include/mtrie.h</itemPath>
+      <itemPath>include/mtrie_imp.h</itemPath>
+      <itemPath>include/mutex.h</itemPath>
+      <itemPath>include/mysql_help.h</itemPath>
+      <itemPath>include/pipe.h</itemPath>
+      <itemPath>include/poller_base.h</itemPath>
+      <itemPath>include/signaler.h</itemPath>
+      <itemPath>include/thread.h</itemPath>
+      <itemPath>include/trie_t.h</itemPath>
+      <itemPath>include/ypipe.h</itemPath>
+      <itemPath>include/ypipe_base.h</itemPath>
+      <itemPath>include/ypipe_conflate.h</itemPath>
+      <itemPath>include/yqueue.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="src" displayName="src" projectFiles="true">
+      <itemPath>src/File.cpp</itemPath>
+      <itemPath>src/IPAddress.cpp</itemPath>
+      <itemPath>src/IniFile.cpp</itemPath>
+      <itemPath>src/clock.cpp</itemPath>
+      <itemPath>src/epoll.cpp</itemPath>
+      <itemPath>src/file_watch.cpp</itemPath>
+      <itemPath>src/mailbox.cpp</itemPath>
+      <itemPath>src/mtrie.cpp</itemPath>
+      <itemPath>src/mysql_help.cpp</itemPath>
+      <itemPath>src/newmain.cpp</itemPath>
+      <itemPath>src/pipe.cpp</itemPath>
+      <itemPath>src/poller_base.cpp</itemPath>
+      <itemPath>src/signaler.cpp</itemPath>
+      <itemPath>src/thread.cpp</itemPath>
+      <itemPath>src/trie_t.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles" displayName="资源文件" projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="测试文件"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="mtrit_test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/newsimpletest.c</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="重要文件"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>src</Elem>
+    <Elem>include</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <commandlineTool>g++</commandlineTool>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <commandLine>-lrt -lpthread</commandLine>
+        </linkerTool>
+      </folder>
+      <item path="include/IniFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/array.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/atomic_counter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/atomic_ptr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/blob.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/clock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/dbuffer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/epoll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/file_watch.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/i_poll_events.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mailbox.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mtrie.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mtrie_imp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mutex.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mysql_help.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/pipe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/poller_base.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/signaler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/thread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/trie_t.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ypipe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ypipe_base.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ypipe_conflate.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/yqueue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/File.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/IPAddress.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/IniFile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/clock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/epoll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/file_watch.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mailbox.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mysql_help.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/pipe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/poller_base.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/signaler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/thread.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/trie_t.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.c" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="include/IniFile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/array.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/atomic_counter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/atomic_ptr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/blob.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/clock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/dbuffer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/epoll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/file_watch.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/i_poll_events.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mailbox.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mtrie.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mtrie_imp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mutex.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mysql_help.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/pipe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/poller_base.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/signaler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/thread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/trie_t.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ypipe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ypipe_base.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/ypipe_conflate.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/yqueue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/File.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/IPAddress.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/IniFile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/clock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/epoll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/file_watch.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mailbox.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mysql_help.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/pipe.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/poller_base.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/signaler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/thread.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/trie_t.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/newsimpletest.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
