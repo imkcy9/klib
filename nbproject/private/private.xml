@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
-        <activeConfTypeElem>3</activeConfTypeElem>
+        <activeConfTypeElem>1</activeConfTypeElem>
         <activeConfIndexElem>0</activeConfIndexElem>
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -13,5 +13,14 @@
             <file>rfs://kecy@192.168.1.10:22/home/kecy/MyProgram/Poller/newmain.cpp</file>
         </group>
         <group/>
+        <group name="ubuntu">
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/array.h</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/poll%5F%74%68%72%65%61%64%2E%68</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/mailbox.h</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/src/newmain.cpp</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/thread%5F%62%61%73%65%2E%63%70%70</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/poll%5F%74%68%72%65%61%64%2E%63%70%70</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/thread%5F%62%61%73%65%2E%68</file>
+        </group>
     </open-files>
 </project-private>

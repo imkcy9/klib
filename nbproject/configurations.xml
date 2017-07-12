@@ -2,7 +2,11 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="include" displayName="include" projectFiles="true">
-      <itemPath>include/IniFile.h</itemPath>
+      <itemPath>include/Ethernet.h</itemPath>
+      <itemPath>include/File.h</itemPath>
+      <itemPath>include/IPAddress.h</itemPath>
+      <itemPath>include/SD.h</itemPath>
+      <itemPath>include/arduino_compat.h</itemPath>
       <itemPath>include/array.h</itemPath>
       <itemPath>include/atomic_counter.h</itemPath>
       <itemPath>include/atomic_ptr.h</itemPath>
@@ -16,11 +20,14 @@
       <itemPath>include/mtrie.h</itemPath>
       <itemPath>include/mtrie_imp.h</itemPath>
       <itemPath>include/mutex.h</itemPath>
-      <itemPath>include/mysql_help.h</itemPath>
       <itemPath>include/pipe.h</itemPath>
+      <itemPath>include/poll_thread.cpp</itemPath>
+      <itemPath>include/poll_thread.h</itemPath>
       <itemPath>include/poller_base.h</itemPath>
       <itemPath>include/signaler.h</itemPath>
       <itemPath>include/thread.h</itemPath>
+      <itemPath>include/thread_base.cpp</itemPath>
+      <itemPath>include/thread_base.h</itemPath>
       <itemPath>include/trie_t.h</itemPath>
       <itemPath>include/ypipe.h</itemPath>
       <itemPath>include/ypipe_base.h</itemPath>
@@ -28,15 +35,11 @@
       <itemPath>include/yqueue.h</itemPath>
     </logicalFolder>
     <logicalFolder name="src" displayName="src" projectFiles="true">
-      <itemPath>src/File.cpp</itemPath>
       <itemPath>src/IPAddress.cpp</itemPath>
-      <itemPath>src/IniFile.cpp</itemPath>
       <itemPath>src/clock.cpp</itemPath>
       <itemPath>src/epoll.cpp</itemPath>
       <itemPath>src/file_watch.cpp</itemPath>
-      <itemPath>src/mailbox.cpp</itemPath>
       <itemPath>src/mtrie.cpp</itemPath>
-      <itemPath>src/mysql_help.cpp</itemPath>
       <itemPath>src/newmain.cpp</itemPath>
       <itemPath>src/pipe.cpp</itemPath>
       <itemPath>src/poller_base.cpp</itemPath>
@@ -70,11 +73,12 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="3">
+    <conf name="Debug" type="1">
       <toolsSet>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
+        <prependToolCollectionPath>false</prependToolCollectionPath>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -85,8 +89,9 @@
             <pElem>src</pElem>
           </incDir>
         </ccTool>
-        <archiverTool>
-        </archiverTool>
+        <linkerTool>
+          <commandLine>-lpthread -lmysqlclient</commandLine>
+        </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">
         <cTool>
@@ -104,7 +109,15 @@
           <commandLine>-lrt -lpthread</commandLine>
         </linkerTool>
       </folder>
-      <item path="include/IniFile.h" ex="false" tool="3" flavor2="0">
+      <item path="include/Ethernet.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/File.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/IPAddress.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/SD.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/arduino_compat.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/array.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -132,15 +145,21 @@
       </item>
       <item path="include/mutex.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/mysql_help.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/pipe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/poll_thread.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/poll_thread.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/poller_base.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/signaler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/thread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/thread_base.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/thread_base.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/trie_t.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -152,11 +171,7 @@
       </item>
       <item path="include/yqueue.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/File.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/IPAddress.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/IniFile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/clock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -164,9 +179,7 @@
       </item>
       <item path="src/file_watch.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/mailbox.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/mysql_help.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/newmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/pipe.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -222,7 +235,15 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="include/IniFile.h" ex="false" tool="3" flavor2="0">
+      <item path="include/Ethernet.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/File.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/IPAddress.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/SD.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/arduino_compat.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/array.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -250,15 +271,21 @@
       </item>
       <item path="include/mutex.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/mysql_help.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/pipe.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/poll_thread.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/poll_thread.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/poller_base.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/signaler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/thread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/thread_base.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="include/thread_base.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/trie_t.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -270,11 +297,7 @@
       </item>
       <item path="include/yqueue.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/File.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/IPAddress.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/IniFile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/clock.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -282,9 +305,9 @@
       </item>
       <item path="src/file_watch.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/mailbox.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/mtrie.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/mysql_help.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/newmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/pipe.cpp" ex="false" tool="1" flavor2="0">
       </item>

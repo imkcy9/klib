@@ -35,14 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/File.o \
+	${OBJECTDIR}/include/poll_thread.o \
+	${OBJECTDIR}/include/thread_base.o \
 	${OBJECTDIR}/src/IPAddress.o \
-	${OBJECTDIR}/src/IniFile.o \
 	${OBJECTDIR}/src/clock.o \
 	${OBJECTDIR}/src/epoll.o \
 	${OBJECTDIR}/src/file_watch.o \
-	${OBJECTDIR}/src/mailbox.o \
-	${OBJECTDIR}/src/mysql_help.o \
+	${OBJECTDIR}/src/mtrie.o \
+	${OBJECTDIR}/src/newmain.o \
 	${OBJECTDIR}/src/pipe.o \
 	${OBJECTDIR}/src/poller_base.o \
 	${OBJECTDIR}/src/signaler.o \
@@ -86,20 +86,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomponent.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomponent.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomponent.a
 
-${OBJECTDIR}/src/File.o: src/File.cpp
-	${MKDIR} -p ${OBJECTDIR}/src
+${OBJECTDIR}/include/poll_thread.o: include/poll_thread.cpp
+	${MKDIR} -p ${OBJECTDIR}/include
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/File.o src/File.cpp
+	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/poll_thread.o include/poll_thread.cpp
+
+${OBJECTDIR}/include/thread_base.o: include/thread_base.cpp
+	${MKDIR} -p ${OBJECTDIR}/include
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/thread_base.o include/thread_base.cpp
 
 ${OBJECTDIR}/src/IPAddress.o: src/IPAddress.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/IPAddress.o src/IPAddress.cpp
-
-${OBJECTDIR}/src/IniFile.o: src/IniFile.cpp
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/IniFile.o src/IniFile.cpp
 
 ${OBJECTDIR}/src/clock.o: src/clock.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -116,15 +116,15 @@ ${OBJECTDIR}/src/file_watch.o: src/file_watch.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/file_watch.o src/file_watch.cpp
 
-${OBJECTDIR}/src/mailbox.o: src/mailbox.cpp
+${OBJECTDIR}/src/mtrie.o: src/mtrie.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/mailbox.o src/mailbox.cpp
+	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/mtrie.o src/mtrie.cpp
 
-${OBJECTDIR}/src/mysql_help.o: src/mysql_help.cpp
+${OBJECTDIR}/src/newmain.o: src/newmain.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/mysql_help.o src/mysql_help.cpp
+	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/newmain.o src/newmain.cpp
 
 ${OBJECTDIR}/src/pipe.o: src/pipe.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -169,17 +169,30 @@ ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.c
 	$(COMPILE.c) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.c
 
 
-${OBJECTDIR}/src/File_nomain.o: ${OBJECTDIR}/src/File.o src/File.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/File.o`; \
+${OBJECTDIR}/include/poll_thread_nomain.o: ${OBJECTDIR}/include/poll_thread.o include/poll_thread.cpp 
+	${MKDIR} -p ${OBJECTDIR}/include
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/include/poll_thread.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/File_nomain.o src/File.cpp;\
+	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/poll_thread_nomain.o include/poll_thread.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/src/File.o ${OBJECTDIR}/src/File_nomain.o;\
+	    ${CP} ${OBJECTDIR}/include/poll_thread.o ${OBJECTDIR}/include/poll_thread_nomain.o;\
+	fi
+
+${OBJECTDIR}/include/thread_base_nomain.o: ${OBJECTDIR}/include/thread_base.o include/thread_base.cpp 
+	${MKDIR} -p ${OBJECTDIR}/include
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/include/thread_base.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/thread_base_nomain.o include/thread_base.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/include/thread_base.o ${OBJECTDIR}/include/thread_base_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/IPAddress_nomain.o: ${OBJECTDIR}/src/IPAddress.o src/IPAddress.cpp 
@@ -193,19 +206,6 @@ ${OBJECTDIR}/src/IPAddress_nomain.o: ${OBJECTDIR}/src/IPAddress.o src/IPAddress.
 	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/IPAddress_nomain.o src/IPAddress.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/IPAddress.o ${OBJECTDIR}/src/IPAddress_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/IniFile_nomain.o: ${OBJECTDIR}/src/IniFile.o src/IniFile.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/IniFile.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/IniFile_nomain.o src/IniFile.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/IniFile.o ${OBJECTDIR}/src/IniFile_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/clock_nomain.o: ${OBJECTDIR}/src/clock.o src/clock.cpp 
@@ -247,30 +247,30 @@ ${OBJECTDIR}/src/file_watch_nomain.o: ${OBJECTDIR}/src/file_watch.o src/file_wat
 	    ${CP} ${OBJECTDIR}/src/file_watch.o ${OBJECTDIR}/src/file_watch_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/mailbox_nomain.o: ${OBJECTDIR}/src/mailbox.o src/mailbox.cpp 
+${OBJECTDIR}/src/mtrie_nomain.o: ${OBJECTDIR}/src/mtrie.o src/mtrie.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/mailbox.o`; \
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/mtrie.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/mailbox_nomain.o src/mailbox.cpp;\
+	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/mtrie_nomain.o src/mtrie.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/src/mailbox.o ${OBJECTDIR}/src/mailbox_nomain.o;\
+	    ${CP} ${OBJECTDIR}/src/mtrie.o ${OBJECTDIR}/src/mtrie_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/mysql_help_nomain.o: ${OBJECTDIR}/src/mysql_help.o src/mysql_help.cpp 
+${OBJECTDIR}/src/newmain_nomain.o: ${OBJECTDIR}/src/newmain.o src/newmain.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/mysql_help.o`; \
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/newmain.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/mysql_help_nomain.o src/mysql_help.cpp;\
+	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/newmain_nomain.o src/newmain.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/src/mysql_help.o ${OBJECTDIR}/src/mysql_help_nomain.o;\
+	    ${CP} ${OBJECTDIR}/src/newmain.o ${OBJECTDIR}/src/newmain_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/pipe_nomain.o: ${OBJECTDIR}/src/pipe.o src/pipe.cpp 
