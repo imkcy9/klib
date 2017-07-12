@@ -3,22 +3,22 @@
 #include <assert.h>
 
 
-kcy::poller_base_t::poller_base_t()
+poller_base_t::poller_base_t()
 {
     
 }
-kcy::poller_base_t::~poller_base_t ()
+poller_base_t::~poller_base_t ()
 {
     // 确保关闭时计数为0
     assert(load.get() == 0);
 }
 
-int kcy::poller_base_t::get_load()
+int poller_base_t::get_load()
 {
     return load.get();
 }
 
-void kcy::poller_base_t::adjust_load(int amount_)
+void poller_base_t::adjust_load(int amount_)
 {
     if(amount_ > 0)
         load.add(amount_);
@@ -26,14 +26,14 @@ void kcy::poller_base_t::adjust_load(int amount_)
         load.sub(-amount_);
 }
 
-void kcy::poller_base_t::add_timer(int timeout_, i_poll_events *sink_, int id_)
+void poller_base_t::add_timer(int timeout_, i_poll_events *sink_, int id_)
 {
     uint64_t expiration = clock.now_ms() + timeout_;
     timer_info_t info = {sink_, id_};
     timers.insert(timers_t::value_type(expiration,info));
 }
 
-void kcy::poller_base_t::cancel_timer(i_poll_events *sink_, int id_)
+void poller_base_t::cancel_timer(i_poll_events *sink_, int id_)
 {
     for(timers_t::iterator it = timers.begin(); it != timers.end(); ++it)
     {
@@ -47,7 +47,7 @@ void kcy::poller_base_t::cancel_timer(i_poll_events *sink_, int id_)
 }
 
 //执行定时器
-uint64_t kcy::poller_base_t::execute_timers()
+uint64_t poller_base_t::execute_timers()
 {
     if(timers.empty())
         return 0;

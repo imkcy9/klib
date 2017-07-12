@@ -14,13 +14,19 @@
         </group>
         <group/>
         <group name="ubuntu">
-            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/array.h</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/thread%5F%62%61%73%65%2E%68</file>
             <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/poll%5F%74%68%72%65%61%64%2E%68</file>
-            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/mailbox.h</file>
-            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/src/newmain.cpp</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/poller%5F%62%61%73%65%2E%68</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/i%5F%70%6F%6C%6C%5F%65%76%65%6E%74%73%2E%68</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/src/epoll.cpp</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/array.h</file>
             <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/thread%5F%62%61%73%65%2E%63%70%70</file>
             <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/poll%5F%74%68%72%65%61%64%2E%63%70%70</file>
-            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/thread%5F%62%61%73%65%2E%68</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/src/poller%5F%62%61%73%65%2E%63%70%70</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/epoll.h</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/pipe.h</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/src/newmain.cpp</file>
+            <file>rfs://kecy@192.168.183.128:22/home/kecy/component/include/mailbox.h</file>
         </group>
     </open-files>
 </project-private>

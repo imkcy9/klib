@@ -28,7 +28,7 @@ public:
     void join();
 private:
 
-    kcy::thread_t m_worker;
+    thread_t m_worker;
 };
 
 #endif /* THREAD_BASE_H */

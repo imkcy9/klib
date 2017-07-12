@@ -8,8 +8,7 @@
 #ifndef ATOMIC_COUNTER_H
 #define	ATOMIC_COUNTER_H
 #include <stddef.h>
-namespace kcy
-{
+
     //原子计数器
     class atomic_counter_t
     {
@@ -59,7 +58,7 @@ namespace kcy
         atomic_counter_t(const atomic_counter_t&);
         const atomic_counter_t& operator=(const atomic_counter_t&);
     };
-}
+
 
 
 #endif	/* ATOMIC_COUNTER_H */

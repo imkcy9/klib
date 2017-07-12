@@ -6,21 +6,21 @@
  */
 
 #ifndef I_POLL_EVENTS_H
-#define	I_POLL_EVENTS_H
-namespace kcy
-{
-    struct i_poll_events
-    {
-        virtual ~i_poll_events(){}
-        
-        virtual void in_event() = 0;
-        
-        virtual void out_event() = 0;
-        
-        virtual void timer_event(int id_) = 0;
-    };
-}
+#define I_POLL_EVENTS_H
+
+struct i_poll_events {
+
+    virtual ~i_poll_events() {
+    }
+
+    virtual void in_event() = 0;
+
+    virtual void out_event() = 0;
+
+    virtual void timer_event(int id_) = 0;
+};
 
 
-#endif	/* I_POLL_EVENTS_H */
+
+#endif /* I_POLL_EVENTS_H */
 

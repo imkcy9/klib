@@ -8,8 +8,7 @@
 #ifndef THREAD_H
 #define	THREAD_H
 #include <pthread.h>
-namespace kcy
-{
+
     typedef void (thread_fn)(void*);
     class thread_t
     {
@@ -29,7 +28,7 @@ namespace kcy
         thread_t(const thread_t&);
         const thread_t& operator=(const thread_t&);
     };
-}
+
 
 
 #endif	/* THREAD_H */

@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/include/poll_thread.o \
 	${OBJECTDIR}/include/thread_base.o \
 	${OBJECTDIR}/src/IPAddress.o \
 	${OBJECTDIR}/src/clock.o \
@@ -82,11 +81,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/component: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/component ${OBJECTFILES} ${LDLIBSOPTIONS} -lpthread -lmysqlclient
-
-${OBJECTDIR}/include/poll_thread.o: include/poll_thread.cpp
-	${MKDIR} -p ${OBJECTDIR}/include
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/poll_thread.o include/poll_thread.cpp
 
 ${OBJECTDIR}/include/thread_base.o: include/thread_base.cpp
 	${MKDIR} -p ${OBJECTDIR}/include
@@ -160,19 +154,6 @@ ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.c
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Iinclude -Isrc -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.c
 
-
-${OBJECTDIR}/include/poll_thread_nomain.o: ${OBJECTDIR}/include/poll_thread.o include/poll_thread.cpp 
-	${MKDIR} -p ${OBJECTDIR}/include
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/include/poll_thread.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Iinclude -Isrc -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/poll_thread_nomain.o include/poll_thread.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/include/poll_thread.o ${OBJECTDIR}/include/poll_thread_nomain.o;\
-	fi
 
 ${OBJECTDIR}/include/thread_base_nomain.o: ${OBJECTDIR}/include/thread_base.o include/thread_base.cpp 
 	${MKDIR} -p ${OBJECTDIR}/include

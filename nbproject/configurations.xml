@@ -21,7 +21,6 @@
       <itemPath>include/mtrie_imp.h</itemPath>
       <itemPath>include/mutex.h</itemPath>
       <itemPath>include/pipe.h</itemPath>
-      <itemPath>include/poll_thread.cpp</itemPath>
       <itemPath>include/poll_thread.h</itemPath>
       <itemPath>include/poller_base.h</itemPath>
       <itemPath>include/signaler.h</itemPath>
@@ -147,8 +146,6 @@
       </item>
       <item path="include/pipe.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/poll_thread.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="include/poll_thread.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/poller_base.h" ex="false" tool="3" flavor2="0">
@@ -272,8 +269,6 @@
       <item path="include/mutex.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/pipe.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/poll_thread.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="include/poll_thread.h" ex="false" tool="3" flavor2="0">
       </item>

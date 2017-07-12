@@ -16,14 +16,14 @@
 #include "i_poll_events.h"
 #include <errno.h>
 
-kcy::epoll_t::epoll_t() :
+epoll_t::epoll_t() :
 stopping(false)
 {
     epoll_fd = epoll_create(1);
     assert(epoll_fd != -1);
 }
 
-kcy::epoll_t::~epoll_t()
+epoll_t::~epoll_t()
 {
     // Wait till the worker thread exits.
     worker.stop();
@@ -34,7 +34,7 @@ kcy::epoll_t::~epoll_t()
     }
 }
 
-kcy::epoll_t::handle_t kcy::epoll_t::add_fd(int fd_,i_poll_events *events_)
+epoll_t::handle_t epoll_t::add_fd(int fd_,i_poll_events *events_)
 {
     poll_entry_t *pe = new (std::nothrow) poll_entry_t;
     assert(pe);
@@ -52,7 +52,7 @@ kcy::epoll_t::handle_t kcy::epoll_t::add_fd(int fd_,i_poll_events *events_)
     return pe;
 }
 
-void kcy::epoll_t::rm_fd(handle_t handle_)
+void epoll_t::rm_fd(handle_t handle_)
 {
     poll_entry_t *pe = (poll_entry_t*)handle_;
     int rc = epoll_ctl(epoll_fd, EPOLL_CTL_DEL,pe->fd,&pe->ev);
@@ -61,7 +61,7 @@ void kcy::epoll_t::rm_fd(handle_t handle_)
     retired.push_back(pe);
 }
 
-void kcy::epoll_t::set_pollin(handle_t handle_)
+void epoll_t::set_pollin(handle_t handle_)
 {
     poll_entry_t *pe = (poll_entry_t*)handle_;
     pe->ev.events |= EPOLLIN;
@@ -69,7 +69,7 @@ void kcy::epoll_t::set_pollin(handle_t handle_)
     assert(rc != -1);
 }
 
-void kcy::epoll_t::reset_pollin(handle_t handle_)
+void epoll_t::reset_pollin(handle_t handle_)
 {
     poll_entry_t *pe = (poll_entry_t*)handle_;
     pe->ev.events &= ~((short)EPOLLIN);
@@ -77,7 +77,7 @@ void kcy::epoll_t::reset_pollin(handle_t handle_)
     assert(rc != -1);
 }
 
-void kcy::epoll_t::set_pollout (handle_t handle_)
+void epoll_t::set_pollout (handle_t handle_)
 {
     poll_entry_t *pe = (poll_entry_t*) handle_;
     pe->ev.events |= EPOLLOUT;
@@ -85,7 +85,7 @@ void kcy::epoll_t::set_pollout (handle_t handle_)
     assert (rc != -1);
 }
 
-void kcy::epoll_t::reset_pollout (handle_t handle_)
+void epoll_t::reset_pollout (handle_t handle_)
 {
     poll_entry_t *pe = (poll_entry_t*) handle_;
     pe->ev.events &= ~((short) EPOLLOUT);
@@ -93,31 +93,31 @@ void kcy::epoll_t::reset_pollout (handle_t handle_)
     assert (rc != -1);
 }
 
-void kcy::epoll_t::start()
+void epoll_t::start()
 {
     worker.start(worker_routine,this);
 }
 
-void kcy::epoll_t::stop()
+void epoll_t::stop()
 {
     stopping = true;
 }
 
-void kcy::epoll_t::wait() {
+void epoll_t::wait() {
     worker.stop();
 }
 
-int kcy::epoll_t::max_fds()
+int epoll_t::max_fds()
 {
     return -1;
 }
 
-void kcy::epoll_t::worker_routine(void *arg_)
+void epoll_t::worker_routine(void *arg_)
 {
     ((epoll_t*)arg_)->loop();
 }
 
-void kcy::epoll_t::loop()
+void epoll_t::loop()
 {
     epoll_event ev_buf[256];//max io events;
     

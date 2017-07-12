@@ -12,8 +12,7 @@
 #include "atomic_counter.h"
 #include "i_poll_events.h"
 
-namespace kcy
-{
+
     struct i_poll_events;
     class poller_base_t
     {
@@ -22,18 +21,18 @@ namespace kcy
         virtual ~poller_base_t();
         
         int get_load();
-        void add_timer(int timeout_, kcy::i_poll_events *sink_, int id_);
-        void cancel_timer(kcy::i_poll_events *sink_, int id_);
+        void add_timer(int timeout_, i_poll_events *sink_, int id_);
+        void cancel_timer(i_poll_events *sink_, int id_);
         
     protected:
         void adjust_load(int amount_);
         uint64_t execute_timers();
     private:
-        clock_t clock;
+        kcy::clock_t clock;
         
         struct timer_info_t
         {
-            kcy::i_poll_events *sink;
+            i_poll_events *sink;
             int id;
         };
         
@@ -51,7 +50,7 @@ namespace kcy
     
     
     
-}
+
 
 
 #endif	/* POLLER_BASE_H */

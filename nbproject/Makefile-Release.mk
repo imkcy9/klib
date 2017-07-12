@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/include/poll_thread.o \
 	${OBJECTDIR}/include/thread_base.o \
 	${OBJECTDIR}/src/IPAddress.o \
 	${OBJECTDIR}/src/clock.o \
@@ -85,11 +84,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomponent.a: ${OBJECTFILES}
 	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomponent.a
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomponent.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomponent.a
-
-${OBJECTDIR}/include/poll_thread.o: include/poll_thread.cpp
-	${MKDIR} -p ${OBJECTDIR}/include
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iinclude -Isrc -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/poll_thread.o include/poll_thread.cpp
 
 ${OBJECTDIR}/include/thread_base.o: include/thread_base.cpp
 	${MKDIR} -p ${OBJECTDIR}/include
@@ -168,19 +162,6 @@ ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.c
 
-
-${OBJECTDIR}/include/poll_thread_nomain.o: ${OBJECTDIR}/include/poll_thread.o include/poll_thread.cpp 
-	${MKDIR} -p ${OBJECTDIR}/include
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/include/poll_thread.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Iinclude -Isrc -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/include/poll_thread_nomain.o include/poll_thread.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/include/poll_thread.o ${OBJECTDIR}/include/poll_thread_nomain.o;\
-	fi
 
 ${OBJECTDIR}/include/thread_base_nomain.o: ${OBJECTDIR}/include/thread_base.o include/thread_base.cpp 
 	${MKDIR} -p ${OBJECTDIR}/include

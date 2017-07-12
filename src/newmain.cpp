@@ -6,7 +6,7 @@
 #include "file_watch.h"
 #include "mtrie.h"
 #include "epoll.h"
-
+#include "poll_thread.h"
 using namespace std;
 using namespace __gnu_cxx;
 #define NDEBUG
@@ -18,18 +18,11 @@ void int_test();
 file_watch fw;
 int main(int argc, char** argv) {
     
-    int ret = 1;//= fw.add_watch("./notify.txt",IN_ACCESS | IN_ATTRIB | IN_MODIFY | IN_CLOSE_WRITE);
-    assert(ret > 0);
-    
-    kcy::epoll_t poller;
-    //kcy::epoll_t::handle_t handle = poller.add_fd(fw.get_notify_fd(), &fw);
-    //poller.set_pollin(handle);
-    poller.start();
-    poller.wait();
-    //str_test();
-    int_test();
-    
-    
+    poll_thread<int> thr;
+    thr.start();
+    int i = 9;
+    thr.post_message(i);
+    sleep(10);
     return 0;
 }
 

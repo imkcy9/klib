@@ -3,12 +3,12 @@
 
 static void* thread_routine(void* arg_)
 {
-    kcy::thread_t* self = (kcy::thread_t*)arg_;
+    thread_t* self = (thread_t*)arg_;
     self->tfn(self->arg);
     return NULL;
 }
 
-void kcy::thread_t::start(thread_fn* tfn_, void* arg_)
+void thread_t::start(thread_fn* tfn_, void* arg_)
 {
     tfn = tfn_;
     arg = arg_;
@@ -16,7 +16,7 @@ void kcy::thread_t::start(thread_fn* tfn_, void* arg_)
     assert(0 == rc);
 }
 
-void kcy::thread_t::stop()
+void thread_t::stop()
 {
     int rc = pthread_join(descriptor,NULL);
     assert(0 == rc  );
