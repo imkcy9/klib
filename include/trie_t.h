@@ -9,8 +9,10 @@
 #define	TRIE_T_H
 #include <stdint.h>
 #include <stddef.h>
+#include <string>
+#include <vector>
 
-//一个简单高效用于实现“订阅”功能的树型结构
+//字符串搜索树
 class trie_t {
 public:
     trie_t();
@@ -18,7 +20,9 @@ public:
     
     bool add(unsigned char *prefix_, size_t size_);
     //bool rm(unsigned char *prefix_, size_t size_);
-    bool check(unsigned char*data_, size_t size_);
+    bool check(unsigned char*data_, size_t size_,  std::vector<std::string>& vec_string);
+    
+    
     //void apply(void(*func)(unsigned char *data_,size_t size_, void *arg_), void *arg_  );
     
 private:
@@ -28,6 +32,8 @@ private:
     //        void(*func_)(unsigned char *data_,size_t size_, void *arg_),
     //        void *arg_);
     //bool is_redundant() const;
+    
+    void search_strings(trie_t *current, std::string& mstring, int& ref_count, int limit_count, std::vector<std::string>& vec_string);
     
     uint32_t refcnt;
     unsigned char min;
