@@ -83,7 +83,7 @@ bool trie_t::add(unsigned char* prefix_, size_t size_) {
     }
 }
 
-bool trie_t::check(unsigned char* data_, size_t size_, std::vector<std::string>& vec_string) {
+bool trie_t::check(unsigned char* data_, size_t size_, std::vector<std::string>& vec_string,size_t limit_return_size_) {
     trie_t *current = this;
     std::string m_string;
     int cnt = 0;
@@ -93,7 +93,7 @@ bool trie_t::check(unsigned char* data_, size_t size_, std::vector<std::string>&
         //            return true;
         //        }
         if (!size_) {
-            search_strings(current, m_string, cnt, 100, vec_string);
+            search_strings(current, m_string, cnt, limit_return_size_, vec_string);
             //rurn false;
             return true;
         }
@@ -117,8 +117,8 @@ bool trie_t::check(unsigned char* data_, size_t size_, std::vector<std::string>&
     }
 }
 
-void trie_t::search_strings(trie_t* current, std::string& mstring, int& ref_count, int limit_count, std::vector<std::string>& vec_string) {
-    if (ref_count > limit_count) {
+void trie_t::search_strings(trie_t* current, std::string& mstring, int& ref_count, size_t limit_count, std::vector<std::string>& vec_string) {
+    if (limit_count <= ref_count) {
         return;
     }
     if (current->count == 0) {

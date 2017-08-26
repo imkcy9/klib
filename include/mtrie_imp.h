@@ -255,6 +255,10 @@ void mtrie_t<OBJ>::rm_all()
             delete next_node;
             next_node = 0;
             --live_nodes;
+            current->count = 0;
+            current->min = 0;
+            current->refcnt = 0;
+            assert(live_nodes == 0);
         }
     }
     else {
@@ -276,6 +280,12 @@ void mtrie_t<OBJ>::rm_all()
                 --live_nodes;
             }
         }
+    }
+    assert(live_nodes == 0);
+    if(live_nodes == 0) {
+        current->count = 0;
+        current->min = 0;
+        current->refcnt = 0;
     }
     
 }
@@ -324,11 +334,9 @@ bool mtrie_t<OBJ>::rm_helper(unsigned char* prefix_, size_t size_)
             assert (live_nodes > 1);
             --live_nodes;
 
-            //  Compact the table if possible
+            
             if (live_nodes == 1) {
-                //  If there's only one live node in the table we can
-                //  switch to using the more compact single-node
-                //  representation
+                
                 unsigned short i;
                 for (i = 0; i < count; ++i)
                     if (next.table [i])
@@ -343,7 +351,7 @@ bool mtrie_t<OBJ>::rm_helper(unsigned char* prefix_, size_t size_)
             }
             else
             if (c == min) {
-                //  We can compact the table "from the left"
+                
                 unsigned short i;
                 for (i = 1; i < count; ++i)
                     if (next.table [i])
@@ -360,7 +368,7 @@ bool mtrie_t<OBJ>::rm_helper(unsigned char* prefix_, size_t size_)
             }
             else
             if (c == min + count - 1) {
-                //  We can compact the table "from the right"
+                
                 unsigned short i;
                 for (i = 1; i < count; ++i)
                     if (next.table [count - 1 - i])

@@ -20,7 +20,7 @@ public:
     
     bool add(unsigned char *prefix_, size_t size_);
     //bool rm(unsigned char *prefix_, size_t size_);
-    bool check(unsigned char*data_, size_t size_,  std::vector<std::string>& vec_string);
+    bool check(unsigned char*data_, size_t size_,  std::vector<std::string>& vec_string,size_t limit_return_size_);
     
     
     //void apply(void(*func)(unsigned char *data_,size_t size_, void *arg_), void *arg_  );
@@ -33,7 +33,7 @@ private:
     //        void *arg_);
     //bool is_redundant() const;
     
-    void search_strings(trie_t *current, std::string& mstring, int& ref_count, int limit_count, std::vector<std::string>& vec_string);
+    void search_strings(trie_t *current, std::string& mstring, int& ref_count, size_t limit_count, std::vector<std::string>& vec_string);
     
     uint32_t refcnt;
     unsigned char min;
