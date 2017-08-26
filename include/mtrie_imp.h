@@ -8,7 +8,7 @@
  * File:   mtrie_imp.h
  * Author: kcy
  *
- * Created on 2016年12月27日, 下午2:24
+ * Created on 2017年08月25日, 下午2:24
  */
 
 #ifndef MTRIE_IMP_H
@@ -18,6 +18,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef DEBUG_PRINT
+#include <iostream>
+using namespace std;
+#endif
 
 
 
@@ -67,7 +71,7 @@ bool mtrie_t<OBJ>::add_helper(unsigned char* prefix_, size_t size_, OBJ* object_
             assert(objects);
         }
         if(object_)
-            objects->insert(object_);
+            objects->push_back(*object_);
         ++refcnt;
         return result;
     }
@@ -144,33 +148,38 @@ bool mtrie_t<OBJ>::add_helper(unsigned char* prefix_, size_t size_, OBJ* object_
 }
 
 template<class OBJ>
-void mtrie_t<OBJ>::match(unsigned char* data_, size_t size, void(*func_)(OBJ*,void*), void* arg_)
+bool mtrie_t<OBJ>::check(unsigned char* data_, size_t size_,  std::vector<OBJ>& vec_obj,size_t limit_return_size_)
 {
+    vec_obj.clear();
     
-}
-
-template<class OBJ>
-bool mtrie_t<OBJ>::check(unsigned char* data_, size_t size_)
-{
     mtrie_t *current = this;
+    std::string m_string;
+    int cnt = 0;
     while(true)
     {
-        if(current->refcnt && !size_)
+        //if(current->refcnt && !size_)
+            //return true;
+        if(!size_) {
+            //return false;
+            search_strings(current, m_string, cnt, limit_return_size_, vec_obj);
+            //rurn false;
             return true;
-        if(!size_)
-            return false;
+        }
         
         unsigned char c = *data_;
         if(c < current->min || c >= current->min + current->count)
             return false;
         
-        if(current->count == 1)
+        if(current->count == 1) {
+            m_string.push_back(c);
             current = current->next.node;
+        }
         else
         {
             current = current->next.table[c - current->min];
             if(!current)
                 return false;
+            m_string.push_back(c);
         }
         data_++;
         size_--;
@@ -178,13 +187,101 @@ bool mtrie_t<OBJ>::check(unsigned char* data_, size_t size_)
 }
 
 template<class OBJ>
-bool mtrie_t<OBJ>::rm(unsigned char* prefix_, size_t size_, OBJ* object)
-{
-    return rm_helper(prefix_,size_,object);
+void mtrie_t<OBJ>::search_strings(mtrie_t* current, std::string& mstring, int& ref_count, size_t limit_count, std::vector<OBJ>& vec_obj) {
+    if (limit_count > 0 && limit_count <= ref_count) {
+        return;
+    }
+    if (current->count == 0 && current->refcnt) {
+        ref_count++;
+        //vec_obj.push_back(mstring);
+        if(current->objects) {
+            for(size_t size = 0; size != current->objects->size(); size++)
+                vec_obj.push_back(*current->objects->begin());
+        }
+        mstring.pop_back();
+
+        return;
+    }
+
+    if (current->count == 1) {
+        mstring.push_back(current->min);
+        search_strings(current->next.node, mstring, ref_count, limit_count, vec_obj);
+    } else {
+        for (int i = 0; i < current->count; i++) {
+            if (!current->next.table[i])
+                continue;
+            mstring.push_back(current->min + i);
+            search_strings(current->next.table[i], mstring, ref_count, limit_count, vec_obj);
+        }
+    }
+    mstring.pop_back();
 }
 
 template<class OBJ>
-bool mtrie_t<OBJ>::rm_helper(unsigned char* prefix_, size_t size_, OBJ* object_)
+bool mtrie_t<OBJ>::rm(unsigned char* prefix_, size_t size_)
+{
+    return rm_helper(prefix_,size_);
+}
+
+template<class OBJ>
+void mtrie_t<OBJ>::rm_all()
+{
+    mtrie_t* current = this;
+    
+    if(current->count == 0) {
+        if(current->objects) {
+#ifdef DEBUG_PRINT
+            for(auto i : *current->objects)
+                cout << "remove ei " <<i.ei << " stcode " << i.stcode << endl;
+#endif
+            delete objects;
+            objects = 0;
+        }
+        return;
+    }
+    mtrie_t *next_node = NULL;
+    if(current->count == 1) {
+        next_node = current->next.node;
+        if(next_node) {
+            next_node->rm_all();
+        } else {
+            return;
+        }
+        assert(next_node->is_redundant ());
+        if (next_node->is_redundant ()) {
+#ifdef DEBUG_PRINT
+            cout << "delete node" << current->min << endl;
+#endif
+            delete next_node;
+            next_node = 0;
+            --live_nodes;
+        }
+    }
+    else {
+        for(int i = 0; i < current->count; i++) {
+
+            next_node = current->next.table [i];
+            if(next_node) {
+                next_node->rm_all();
+            } else {
+                continue;
+            }
+            assert(next_node->is_redundant ());
+            if (next_node->is_redundant ()) {
+#ifdef DEBUG_PRINT
+                cout << "delete node" << current->min << endl;
+#endif
+                delete next_node;
+                next_node = 0;
+                --live_nodes;
+            }
+        }
+    }
+    
+}
+
+template<class OBJ>
+bool mtrie_t<OBJ>::rm_helper(unsigned char* prefix_, size_t size_)
 {
     if(!size_)
     {
@@ -210,7 +307,7 @@ bool mtrie_t<OBJ>::rm_helper(unsigned char* prefix_, size_t size_, OBJ* object_)
     if (!next_node)
         return false;
 
-    bool ret = next_node->rm_helper (prefix_ + 1, size_ - 1, object_);
+    bool ret = next_node->rm_helper (prefix_ + 1, size_ - 1);
 
     if (next_node->is_redundant ()) {
         delete next_node;

@@ -8,7 +8,7 @@
  * File:   mtrie.h
  * Author: kcy
  *
- * Created on 2016年11月14日, 上午8:43
+ * Created on 2017年08月25日, 下午2:40
  */
 
 #ifndef MTRIE_H
@@ -17,6 +17,8 @@
 #include <set>
 #include <string.h>
 #include <stdint.h>
+#include <vector>
+#include <string>
 
 
 template<class OBJ>
@@ -25,33 +27,23 @@ public:
     mtrie_t();
     virtual ~mtrie_t();
     
-    // Add key to the trie. Returns true if it's a new subscription.
-    bool add(unsigned char *prefix_, size_t size_, OBJ *object_ = NULL);
+    bool add(unsigned char *prefix_, size_t size_, OBJ* object_);
 
-    //Remove all subscription
-    void rm(OBJ *object_, 
-            void (*func_) (unsigned char *data_, size_t size, void *arg_),
-            void *arg_);
-    bool rm(unsigned char *prefix_, size_t size_, OBJ *object = NULL);
+    bool rm(unsigned char *prefix_, size_t size_);
     
-    // Signal all the matching objects.
-    void match(unsigned char *data_, size_t size,
-            void (*func_) (OBJ *object_, void *arg_),
-            void *arg_);
+    bool check(unsigned char* data_, size_t size_,  std::vector<OBJ>& vec_object,size_t limit_return_size_);
     
-    bool check(unsigned char* data_, size_t size_);
+    void rm_all();
 protected:
-    bool add_helper(unsigned char *prefix_, size_t size_, OBJ *object_);
+    void search_strings(mtrie_t *current, std::string& mstring, int& ref_count, size_t limit_count, std::vector<OBJ>& vec_string);
     
-    void rm_helper(OBJ *object_, unsigned char **buff_, size_t buffsize_, size_t maxbuffsize_,
-                    void (*func_) (unsigned char *data_, size_t size_, void *arg_),
-                    void *arg_);
+    bool add_helper(unsigned char *prefix_, size_t size_, OBJ* object_);
     
-    bool rm_helper(unsigned char *prefix_, size_t size_, OBJ *object_);
+    bool rm_helper(unsigned char *prefix_, size_t size_);
     bool is_redundant() const;
     
 private:
-    typedef std::set<OBJ*> objects_t;
+    typedef std::vector<OBJ> objects_t;
     objects_t *objects;
 
     
@@ -66,33 +58,6 @@ private:
 };
 
 #include "mtrie_imp.h"
-
-template<class OBJ>
-class trie_map : public mtrie_t<OBJ> {
-public:
-    bool add(unsigned char *key_,  OBJ *object_ = NULL) {
-        return add_helper(key_, strlen((const char*)key_), object_);
-    }
-    bool add(const char *key_, OBJ *object_ = NULL) {
-        return add_helper((unsigned char*)key_, strlen(key_), object_);
-    }
-    
-    bool check(const char* key_) {
-        return mtrie_t<OBJ>::check((unsigned char*)key_, strlen(key_));
-    }
-};
-
-template<typename key_type, class OBJ>
-class value_map : public mtrie_t<OBJ> {
-public:
-    bool add(key_type key_value_, OBJ *object_ = NULL) {
-        return add_helper((unsigned char*)&key_value_, sizeof(key_type), object_);
-    }
-    
-    bool check(key_type key_value_) {
-        return mtrie_t<OBJ>::check((unsigned char*)&key_value_, sizeof(key_type));
-    }
-};
 
 #endif /* MTRIE_H */
 
