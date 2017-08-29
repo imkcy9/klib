@@ -82,9 +82,20 @@ void int_test() {
     info.ei = 1112;
     trie.Add("6006000",&info);
     
+    info.stcode = "6000001";
+    info.ei = 1112;
+    trie.Add("6000001",&info);
+    info.stcode = "6000002";
+    info.ei = 1112;
+    trie.Add("6000002",&info);
+    
     info.stcode = "6000011";
     info.ei = 1144;
     trie.Add("6000011",&info);
+    
+    info.stcode = "6600011";
+    info.ei = 1144;
+    trie.Add("6600011",&info);
     
         info.stcode = "1006000";
     info.ei = 1113;

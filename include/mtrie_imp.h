@@ -257,11 +257,22 @@ void mtrie_t<OBJ>::search_strings(unsigned char* data_, size_t size_,mtrie_t* cu
         
         search_strings(data_,size_,current->next.node, ref_count, limit_count, vec_obj,mode);
     } else {
-        for (int i = 0; i < current->count; i++) {
-            if (!current->next.table[i])
-                continue;
-            
-            search_strings(data_,size_,current->next.table[i], ref_count, limit_count, vec_obj,mode);
+        //以股票代码从前到后匹配，如搜索”600“，则优先匹配”xxx600“，再匹配”600xxx“，”x600xx“”xx600x“
+        if(mode == search_mid) {
+            for (int i = current->count - 1; i >= 0; i--) {
+                if (!current->next.table[i])
+                    continue;
+
+                search_strings(data_,size_,current->next.table[i], ref_count, limit_count, vec_obj,mode);
+            }
+        } else {
+            //多个搜索结果以股票代码数字递增排序，如搜索”3001”，则排序为“300101”“300102”“300103”
+            for (int i = 0; i < current->count; i++) {
+                if (!current->next.table[i])
+                    continue;
+
+                search_strings(data_, size_, current->next.table[i], ref_count, limit_count, vec_obj, mode);
+            }
         }
     }
 
