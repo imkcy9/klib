@@ -28,6 +28,7 @@ using namespace std;
 template<class OBJ>
 mtrie_t<OBJ>::mtrie_t() 
 :objects(NULL)
+,suffix(NULL)
 ,refcnt(0)
 ,min(0)
 ,count(0)
@@ -49,7 +50,7 @@ mtrie_t<OBJ>::~mtrie_t() {
 template<class OBJ>
 bool mtrie_t<OBJ>::add(unsigned char* prefix_, size_t size_, OBJ* object_)
 {
-    return add_helper(prefix_, size_, object_);
+    return add_helper(prefix_, size_,prefix_, size_, object_);
 }
 
 //template<class OBJ>
@@ -59,7 +60,19 @@ bool mtrie_t<OBJ>::add(unsigned char* prefix_, size_t size_, OBJ* object_)
 //}
 
 template<class OBJ>
-bool mtrie_t<OBJ>::add_helper(unsigned char* prefix_, size_t size_, OBJ* object_)
+trie_t* mtrie_t<OBJ>::create_suffix_trie(unsigned char* ori_string, size_t size_) {
+    trie_t* psuffix_trie = new trie_t();
+    assert(strlen((const char*)ori_string) + 1 == size_);
+    
+    size_t suffix_size = size_ - 1;
+    for(unsigned char* p = ori_string + 1; p != ori_string + size_; p++) {
+        psuffix_trie->add(p,--suffix_size);
+    }
+    return psuffix_trie;
+}
+
+template<class OBJ>
+bool mtrie_t<OBJ>::add_helper(unsigned char* prefix_, size_t size_,unsigned char* ori_str_, size_t ori_size_, OBJ* object_)
 {
     // We are at the node corresponding to the prefix. We are done.
     if(!size_)
@@ -72,6 +85,8 @@ bool mtrie_t<OBJ>::add_helper(unsigned char* prefix_, size_t size_, OBJ* object_
         }
         if(object_)
             objects->push_back(*object_);
+        if(!suffix)
+            suffix = create_suffix_trie(ori_str_,ori_size_);
         ++refcnt;
         return result;
     }
@@ -134,7 +149,7 @@ bool mtrie_t<OBJ>::add_helper(unsigned char* prefix_, size_t size_, OBJ* object_
             assert(next.node);
             ++live_nodes;
         }
-        return next.node->add_helper(prefix_ + 1, size_ -1, object_);
+        return next.node->add_helper(prefix_ + 1, size_ -1,ori_str_,ori_size_, object_);
     } else
     {
         if(!next.table[c - min])
@@ -143,25 +158,25 @@ bool mtrie_t<OBJ>::add_helper(unsigned char* prefix_, size_t size_, OBJ* object_
             assert(next.table[c - min]);
             ++live_nodes;
         }
-        return next.table[c - min]->add_helper(prefix_ + 1, size_ - 1, object_);
+        return next.table[c - min]->add_helper(prefix_ + 1, size_ - 1,ori_str_,ori_size_, object_);
     }
 }
 
 template<class OBJ>
-bool mtrie_t<OBJ>::check(unsigned char* data_, size_t size_,  std::vector<OBJ>& vec_obj,size_t limit_return_size_)
+bool mtrie_t<OBJ>::check_prefix(unsigned char* data_, size_t size_, size_t& cnt, std::vector<OBJ>& vec_obj,size_t limit_return_size_)
 {
-    vec_obj.clear();
+    //vec_obj.clear();
     
     mtrie_t *current = this;
-    std::string m_string;
-    int cnt = 0;
+
+
     while(true)
     {
         //if(current->refcnt && !size_)
             //return true;
         if(!size_) {
             //return false;
-            search_strings(current, m_string, cnt, limit_return_size_, vec_obj);
+            search_strings(data_, size_, current, cnt, limit_return_size_, vec_obj,search_prefix);
             //rurn false;
             return true;
         }
@@ -171,7 +186,7 @@ bool mtrie_t<OBJ>::check(unsigned char* data_, size_t size_,  std::vector<OBJ>& 
             return false;
         
         if(current->count == 1) {
-            m_string.push_back(c);
+
             current = current->next.node;
         }
         else
@@ -179,7 +194,7 @@ bool mtrie_t<OBJ>::check(unsigned char* data_, size_t size_,  std::vector<OBJ>& 
             current = current->next.table[c - current->min];
             if(!current)
                 return false;
-            m_string.push_back(c);
+
         }
         data_++;
         size_--;
@@ -187,34 +202,69 @@ bool mtrie_t<OBJ>::check(unsigned char* data_, size_t size_,  std::vector<OBJ>& 
 }
 
 template<class OBJ>
-void mtrie_t<OBJ>::search_strings(mtrie_t* current, std::string& mstring, int& ref_count, size_t limit_count, std::vector<OBJ>& vec_obj) {
+bool mtrie_t<OBJ>::check_mid(unsigned char* data_, size_t size_, size_t& cnt, std::vector<OBJ>& vec_object, size_t limit_return_size_) {
+    search_strings(data_,size_,this, cnt, limit_return_size_, vec_object, search_mid);
+    return true;
+}
+
+template<class OBJ>
+bool mtrie_t<OBJ>::check_suffix(unsigned char* data_, size_t size_, size_t &cnt,std::vector<OBJ>& vec_object, size_t limit_return_size_) {
+     search_strings(data_,size_,this, cnt, limit_return_size_, vec_object, search_suffix);
+     return true;
+}
+
+template<class OBJ>
+void mtrie_t<OBJ>::search_strings(unsigned char* data_, size_t size_,mtrie_t* current, size_t& ref_count, size_t limit_count, std::vector<OBJ>& vec_obj,search_mode mode) {
     if (limit_count > 0 && limit_count <= ref_count) {
         return;
     }
-    if (current->count == 0 && current->refcnt) {
-        ref_count++;
-        //vec_obj.push_back(mstring);
-        if(current->objects) {
-            for(size_t size = 0; size != current->objects->size(); size++)
-                vec_obj.push_back(*current->objects->begin());
-        }
-        mstring.pop_back();
 
+    if (current->count == 0 && current->refcnt) {
+        
+        
+        if (current->objects) {
+            if(mode == search_prefix) {
+                for (size_t size = 0; size != current->objects->size(); size++) {
+                    vec_obj.push_back(*current->objects->begin());
+                    ref_count++;
+                }
+            }
+            if(mode == search_suffix) {
+                assert(current->suffix);
+                if(current->suffix->check(data_,size_) > 0) {
+                    for (size_t size = 0; size != current->objects->size(); size++) {
+                        vec_obj.push_back(*current->objects->begin());
+                        ref_count++;
+                    }
+                }
+            }
+            if (mode == search_mid) {
+                assert(current->suffix);
+                if (current->suffix->check(data_, size_) == 0) {
+                    for (size_t size = 0; size != current->objects->size(); size++) {
+                        vec_obj.push_back(*current->objects->begin());
+                        ref_count++;
+                    }
+                }
+            }
+            
+        } 
         return;
     }
 
+
     if (current->count == 1) {
-        mstring.push_back(current->min);
-        search_strings(current->next.node, mstring, ref_count, limit_count, vec_obj);
+        
+        search_strings(data_,size_,current->next.node, ref_count, limit_count, vec_obj,mode);
     } else {
         for (int i = 0; i < current->count; i++) {
             if (!current->next.table[i])
                 continue;
-            mstring.push_back(current->min + i);
-            search_strings(current->next.table[i], mstring, ref_count, limit_count, vec_obj);
+            
+            search_strings(data_,size_,current->next.table[i], ref_count, limit_count, vec_obj,mode);
         }
     }
-    mstring.pop_back();
+
 }
 
 template<class OBJ>
@@ -236,6 +286,10 @@ void mtrie_t<OBJ>::rm_all()
 #endif
             delete objects;
             objects = 0;
+        }
+        if(current->suffix) {
+            delete suffix;
+            suffix = 0;
         }
         return;
     }
@@ -303,6 +357,10 @@ bool mtrie_t<OBJ>::rm_helper(unsigned char* prefix_, size_t size_)
             if(objects->empty()) {
                 delete objects;
                 objects = 0;
+            }
+            if(suffix) {
+                delete suffix;
+                suffix = 0;
             }
         }
         return !objects;

@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
     trie.add((unsigned char*)"abudh",6);
     trie.add((unsigned char*)"abldh",6);
     std::vector<std::string> vec_str;
-    trie.check((unsigned char*)"abf",3,vec_str,2);
+    trie.check((unsigned char*)"abf",4);
 
 
     cout << "result :" << vec_str.size() << endl;
@@ -77,60 +77,53 @@ void int_test() {
 
     //mtrie_t<st_info> trie;
     st_info info;
-    info.stcode = "国泰群安";
-    info.ei = 111;
-    trie.Add("abcde",&info);
-    trie.Add("abcdf",&info);
-    trie.Add("abddh",&info);
-    trie.Add("abedh",&info);
     
-    info.stcode = "国泰群安abfdh9324";
+    info.stcode = "6006000";
     info.ei = 1112;
-    trie.Add("abfdh9324",&info);
-        info.stcode = "国泰群安abfdhp324";
+    trie.Add("6006000",&info);
+    
+    info.stcode = "6000011";
+    info.ei = 1144;
+    trie.Add("6000011",&info);
+    
+        info.stcode = "1006000";
     info.ei = 1113;
-    trie.Add("abfdhp324",&info);
-    info.stcode = "国泰群安abfdh@324";
+    trie.Add("1006000",&info);
+    
+    info.stcode = "1000600";
     info.ei = 1114;
-    trie.Add("abfdh@324",&info);
-    info.stcode = "国泰群安abfdh~324";
+    trie.Add("1000600",&info);
+    
+    info.stcode = "abfdh~324";
     info.ei = 1115;
     trie.Add("abfdh~324",&info);
-    info.stcode = "国泰群安abfdh%324";
+    
+    info.stcode = "abddh%324";
     info.ei = 1116;
-    trie.Add("abfdh%324",&info);
-    info.stcode = "国泰群安abfdh*3*4";
+    trie.Add("abddh%324",&info);
+    
+    info.stcode = "abfdh*3*4";
     info.ei = 1117;
     trie.Add("abfdh*3*4",&info);
+    
+    info.stcode = "XX钢铁";
+    info.ei = 1118;
+    trie.Add("XX钢铁",&info);
+    
+    info.stcode = "钢铁XX";
+    info.ei = 1119;
+    trie.Add("钢铁XX",&info);
 
-    trie.Add("abgdh",&info);
-    trie.Add("abhdh",&info);
-    trie.Add("abudh",&info);
-    trie.Add("abldh",&info);
+
     std::vector<st_info> vec_str;
-    trie.SearchByPrefix("abf",vec_str);
-
-
-    cout << "result :" << vec_str.size() << endl;
-    for(auto i : vec_str) {
-        cout << i.ei << " " << i.stcode << endl;
-    }
     vec_str.clear();
-    bool ret = trie.Remove("abfdh*3*4");
-    trie.SearchByPrefix("abf",vec_str);
-    cout << "result :" << vec_str.size() << endl;
+
+    //trie.SearchByPrefix("bfbfabc",vec_str);
+    trie.SearchByPrefix("600",vec_str);
+    cout << "result y:" << vec_str.size() << endl;
     for(auto i : vec_str) {
         cout << i.ei << " " << i.stcode << endl;
     }
     
-    vec_str.clear();
-    ret = trie.Remove("abfdh%324");
-    trie.SearchByPrefix("abf",vec_str);
-    cout << "result :" << vec_str.size() << endl;
-    for(auto i : vec_str) {
-        cout << i.ei << " " << i.stcode << endl;
-    }
-    
-    trie.RemoveAll();
 }
 

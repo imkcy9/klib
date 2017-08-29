@@ -83,33 +83,30 @@ bool trie_t::add(unsigned char* prefix_, size_t size_) {
     }
 }
 
-bool trie_t::check(unsigned char* data_, size_t size_, std::vector<std::string>& vec_string,size_t limit_return_size_) {
+int trie_t::check(unsigned char* data_, size_t size_) {
     trie_t *current = this;
-    std::string m_string;
-    int cnt = 0;
+
     while (true) {
         //        if(current->refcnt && !size_) {
         //            vec_string.push_back(m_string);
         //            return true;
         //        }
         if (!size_) {
-            search_strings(current, m_string, cnt, limit_return_size_, vec_string);
             //rurn false;
-            return true;
+            return (int)current->refcnt;
         }
 
         unsigned char c = *data_;
         if (c < current->min || c >= current->min + current->count)
-            return false;
+            return -1;
 
         if (current->count == 1) {
-            m_string.push_back(c);
+
             current = current->next.node;
         } else {
             current = current->next.table[c - current->min];
             if (!current)
-                return false;
-            m_string.push_back(c);
+                return -1;
 
         }
         data_++;
@@ -117,29 +114,3 @@ bool trie_t::check(unsigned char* data_, size_t size_, std::vector<std::string>&
     }
 }
 
-void trie_t::search_strings(trie_t* current, std::string& mstring, int& ref_count, size_t limit_count, std::vector<std::string>& vec_string) {
-    if (limit_count <= ref_count) {
-        return;
-    }
-    if (current->count == 0) {
-        ref_count++;
-        vec_string.push_back(mstring);
-
-        mstring.pop_back();
-
-        return;
-    }
-
-    if (current->count == 1) {
-        mstring.push_back(current->min);
-        search_strings(current->next.node, mstring, ref_count, limit_count, vec_string);
-    } else {
-        for (int i = 0; i < current->count; i++) {
-            if (!current->next.table[i])
-                continue;
-            mstring.push_back(current->min + i);
-            search_strings(current->next.table[i], mstring, ref_count, limit_count, vec_string);
-        }
-    }
-    mstring.pop_back();
-}

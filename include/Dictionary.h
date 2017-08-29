@@ -51,7 +51,12 @@ public:
      * @return 
      */
     inline bool SearchByPrefix(const char* prefix, std::vector<OBJ>& vec_result, size_t max_result_size = -1) {
-        return m_dictionary.check((unsigned char*)prefix, strlen(prefix), vec_result, max_result_size);
+        size_t cnt = 0;
+        m_dictionary.check_suffix((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+        m_dictionary.check_prefix((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+
+        m_dictionary.check_mid((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+        return true;
     }
 private:
     mtrie_t<OBJ> m_dictionary;
