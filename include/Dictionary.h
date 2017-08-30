@@ -52,12 +52,33 @@ public:
      */
     inline bool SearchByPrefix(const char* prefix, std::vector<OBJ>& vec_result, size_t max_result_size = -1) {
         size_t cnt = 0;
-        m_dictionary.check_suffix((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
-        m_dictionary.check_prefix((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
-
-        m_dictionary.check_mid((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+        int i = isdigit(prefix);
+        //股票代码(根据是否是数字判断)从前到后匹配，如搜索”600“，则优先匹配”xxx600“，再匹配”600xxx“，”x600xx“”xx600x“
+        if(0 == i) {
+            m_dictionary.check_suffix((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+            m_dictionary.check_prefix((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+            m_dictionary.check_mid((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+        } else {
+            m_dictionary.check_prefix((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+            m_dictionary.check_suffix((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+            m_dictionary.check_mid((unsigned char*)prefix, strlen(prefix),cnt, vec_result, max_result_size);
+        }
         return true;
     }
+    
+    /**
+     * 判断字符串是否为数字
+     * @param strinfo 判断的字符串
+     * @return 0 为数字，-1 非数字
+     */
+    inline int isdigit(std::string strinfo) {
+        std::string strset = "1234567890";
+        int first = strinfo.find_first_of(strset);
+        if (first == std::string::npos) {
+            return -1;
+        }
+        return 0;
+    } 
 private:
     mtrie_t<OBJ> m_dictionary;
 };
